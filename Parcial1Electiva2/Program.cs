@@ -17,10 +17,7 @@ namespace Parcial1Electiva2
             int CodigoIdent;
             int incrementU = 1;
             int incrementB = 1;
-
-            //
-            //String[] Genero = new string[4] { " ", "HOMBRE", "MUJER", "NO BINARIO" };
-            //String[] Facultades = new string[5] { " ", "INGENIERIA", "MEDICINA", "CIENCIAS SOCIALES", "CIENCIAS ADMINISTRATIVAS" };
+            Boolean validacion = false;
 
 
             Users Usuario = new Users();
@@ -75,7 +72,7 @@ namespace Parcial1Electiva2
 
 
                                 ListUsuario.Add(new Users(Usuario.id, Usuario.nombres, Usuario.apellidos));
-                                
+
                                 break;
 
 
@@ -124,16 +121,23 @@ namespace Parcial1Electiva2
 
 
                         switch (MenuBlogs)//Switch MenuBlogs
-                           
+
                         {
 
                             case 1://Agregar Blogs opcion 1 submenu2
+
+                                Console.WriteLine("Usuarios Actuales");
+                                foreach (Users item in ListUsuario)
+                                {
+                                    Console.WriteLine($"ID usuario : {item.id} | Nombre : {item.nombres} |  Apellido : {item.apellidos}");
+
+                                }
 
                                 Console.WriteLine("Ingrese el codigo del usuario");
                                 CodigoIdent = int.Parse(Console.ReadLine());
                                 Console.Clear();
 
-                                Boolean validacion = false;
+
 
                                 foreach (Users item in ListUsuario)
                                 {
@@ -141,36 +145,42 @@ namespace Parcial1Electiva2
                                     if (item.id == CodigoIdent)
                                     {
                                         validacion = true;
+                                        Console.WriteLine("usuario encontrado");
+                                        
                                         break;
                                     }
-                                    
+                                    Console.Clear();
 
                                 }
 
                                 if (validacion)
-                                {   
-                                    
-                                   
+                                {
 
-                                        //Console.WriteLine("Ingrese el codigo del Blog :");
-                                        Blogss.BlogID = incrementB;                                     
-                                        incrementB++;
 
-                                        Blogss.CodigoUsuario = CodigoIdent;
 
-                                        //Console.Clear();
+                                    //Console.WriteLine("Ingrese el codigo del Blog :");
+                                    Blogss.BlogID = incrementB;
+                                    incrementB++;
 
-                                        Console.WriteLine("Ingrese el nombre del Blog :");
-                                        Blogss.NameBlog = Console.ReadLine();
-                                        Console.Clear();
+                                    Blogss.CodigoUsuario = CodigoIdent;
 
-                                        ListBlogs.Add(new Blogs(Blogss.BlogID, Blogss.NameBlog, Blogss.CodigoUsuario));
-                                       
-                                   
-                                 
+                                    //Console.Clear();
+
+                                    Console.WriteLine("Ingrese el nombre del Blog :");
+                                    Blogss.NameBlog = Console.ReadLine();
+                                    Console.Clear();
+
+                                    ListBlogs.Add(new Blogs(Blogss.BlogID, Blogss.NameBlog, Blogss.CodigoUsuario));
+
+
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Usuario no encontrado");
                                 }
 
-                                
+
 
 
 
@@ -181,25 +191,52 @@ namespace Parcial1Electiva2
 
                             case 2: //Listar Blogs opcion 2 submenu2
 
-                                CodigoIdent = Usuario.id;
+                                Console.WriteLine("Usuarios Actuales");
+                                foreach (Users item in ListUsuario)
+                                {
+                                    Console.WriteLine($"ID usuario : {item.id} | Nombre : {item.nombres} |  Apellido : {item.apellidos}");
 
-                                if (CodigoIdent == Usuario.id)
+                                }
+
+                                Console.WriteLine("Ingresar id del usuario");
+                                CodigoIdent = Convert.ToInt32(Console.ReadLine());
+
+                                foreach (Users item in ListUsuario)
+                                {
+                                    if (item.id == CodigoIdent)
+                                    {
+                                        validacion = true;
+                                        Console.WriteLine("Usuario encontrado");
+                                        
+                                        break;
+
+                                    }
+                                    Console.Clear();
+                                }
+
+                                if (validacion)
                                 {
 
                                     foreach (Blogs item in ListBlogs)
                                     {
 
-                                        Console.WriteLine($"El Id del Blogs es : {item.BlogID} ");
-                                        Console.WriteLine($"El Nombre del Blog es : {item.NameBlog} ");
-                                        Console.WriteLine($"El codigo de usaruio del Blog es : {item.CodigoUsuario} ");
+                                        if (item.CodigoUsuario == CodigoIdent)
+                                        {
+                                            Console.WriteLine($"El Id del Blogs es : {item.BlogID} ");
+                                            Console.WriteLine($"El Nombre del Blog es : {item.NameBlog} ");
+                                            Console.WriteLine($"El codigo de usaruio del Blog es : {item.CodigoUsuario} ");
+                                        }
+
 
                                     }
 
-                                }
-                                {
 
-                                    Console.WriteLine("El usuario no existe");
                                 }
+                                else
+                                {
+                                    Console.WriteLine("Usuario no encontrado");
+                                }
+
 
                                 if (ListBlogs.Count == 0)
                                 {
